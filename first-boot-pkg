@@ -21,6 +21,7 @@ default_noreboot = False
 default_noshutdown = True
 default_retry_count = 10
 default_sleep_count = 10
+default_sign = 'None'
 now = localtime()
 default_version = "%04d.%02d.%02d" % (now.tm_year, now.tm_mon, now.tm_mday)
 pkgbuild = "/usr/bin/pkgbuild"
@@ -87,6 +88,11 @@ def main():
         default=default_sleep_count,
         help=("Amount of seconds to sleep when looking for network. "
               "Defaults to %s. ")% default_sleep_count)
+
+    o.add_option("--sign",
+        default=default_sign,
+        help=("Sign the resulting package with the specified identity. "
+              "Defaults to %s. ")% default_sign)
         
     o.add_option("--plist",
         help=("Optional. Path to an XML plist file containing "
@@ -313,6 +319,12 @@ def main():
     "--package", output_pkg,
     dist_output
     ]
+
+	# Taken from make-profile-pkg
+    if opts.sign:
+        # Use slice assignment to insert an additional option before the final argument
+        cmd[-1:] = ["--sign", opts.sign, dist_output]
+
     subprocess.call(cmd)
     
     try:

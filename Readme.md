@@ -8,6 +8,8 @@
 - Will wait for the network to be available before installing (optional, can be disabled if desired)
 - Can specify amount of seconds to retry network (optional
 - Can specify whether your first boot package requires a reboot or not
+- Can specify to shutdown after installation
+- Can codesign package
 
 Run with ``--help`` for the full list of options.
 
@@ -75,6 +77,14 @@ By default, the network retry and sleep count are both set to 10 for a total of 
 If you would like to invoke either a reboot or shutdown, set one of the values to false.
 
 You can now specify a "LaunchDaemonIdentifier". This will allow you to override the default value of "com.grahamgilbert.first-boot-pkg"
+
+## Code Signing Packages
+
+To code sign a package, use the --sign. If you are using a plist, you will need to pass the argument when building.
+
+```bash
+ sudo ./first-boot-pkg --plist /Users/grahamgilbert/Desktop/first-boot-config.plist --sign "3rd Party Mac Developer Installer: Example Company (XXXXXX1XXX)"
+ ```
 
 ## Credits
 
